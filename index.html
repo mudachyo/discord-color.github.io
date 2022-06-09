@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<title>Rebane's Discord Colored Text Generator</title>
+<meta charset="UTF-8">
+<meta name="description" content="Discord генератор цветного текста">
+<style>
+/*
+This license applies to the entire page, not just the style block.
+    
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
+*/
+
+    html {
+        font-family: sans-serif;
+        background-color: #36393F;
+        text-align: center;
+        color: #FFF;
+    }
+
+    .container {
+        max-width: 500px;
+        margin: auto;
+    }
+
+    .flex {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #textarea {
+        width: 600px;
+        height: 200px;
+        border-radius: 5px;
+        resize: both;
+        overflow: auto;
+        text-align: left;
+        font-family: monospace;
+        background-color: #2F3136;
+        color: #B9BBBE;
+        border: #202225 1px solid;
+        padding: 5px;
+        display: inline-block;
+        
+        white-space: pre-wrap;
+        font-size: 0.875rem;
+        line-height: 1.125rem;
+        text-indent: 0;
+    }
+
+    .button {
+        min-height: 32px;
+        min-width: 32px;
+        border: none;
+        border-radius: 3px;
+        color: #fff;
+        background-color: #4f545c;
+        font-size: 14px;
+        padding: 2px 16px;
+        cursor: pointer;
+        transition: background-color 250ms linear;
+    }
+
+    a,a:visited {
+        color: #00AFF4
+    }
+
+.ansi-1 { font-weight:700; text-decoration:none;       }
+.ansi-4 { font-weight:500; text-decoration:underline;  }
+
+.ansi-30 { color: #4f545c; }
+.ansi-31 { color: #dc322f; }
+.ansi-32 { color: #859900; }
+.ansi-33 { color: #b58900; }
+.ansi-34 { color: #268bd2; }
+.ansi-35 { color: #d33682; }
+.ansi-36 { color: #2aa198; }
+.ansi-37 { color: #ffffff; }
+
+.ansi-30-bg { background-color: #4f545c; }
+.ansi-31-bg { background-color: #dc322f; }
+.ansi-32-bg { background-color: #859900; }
+.ansi-33-bg { background-color: #b58900; }
+.ansi-34-bg { background-color: #268bd2; }
+.ansi-35-bg { background-color: #d33682; }
+.ansi-36-bg { background-color: #2aa198; }
+.ansi-37-bg { background-color: #ffffff; }
+
+.ansi-40 { background-color: #002b36; }
+.ansi-41 { background-color: #cb4b16; }
+.ansi-42 { background-color: #586e75; }
+.ansi-43 { background-color: #657b83; }
+.ansi-44 { background-color: #839496; }
+.ansi-45 { background-color: #6c71c4; }
+.ansi-46 { background-color: #93a1a1; }
+.ansi-47 { background-color: #fdf6e3; }
+
+</style>
+</head>
+<body>
+<h1>Discord генератор <span style="color:#5865F2">цветного </span>текста</h1>
+<div class="container">
+<h3>About</h3>
+<p>Это простое приложение, которое создает цветные сообщения Discord, используя цветовые коды ANSI, доступные в последних версиях Discord для ПК.</p>
+<p>Чтобы использовать это, напишите свой текст, выделите часть и выберите цвет, затем скопируйте его с помощью кнопки ниже и отправьте сообщение в Discord.</p>
+<h3>Исходный код</h3>
+<p>Это приложение полностью работает в вашем браузере, а исходный код находится в свободном доступе на <a href="https://gist.github.com/rebane2001/07f2d8e80df053c70a1576d27eabe97c">GitHub</a>. Спасибо kkrypt0nn за <a href="https://gist.github.com/kkrypt0nn/a02506f3712ff2d1c8ca7c9e0aed7c06">этот гайд</a>.</p>
+</div>
+<h2>Создай свой текст</h2>
+<button data-ansi="0" class="button style-button">Сбросить всё</button>
+<button data-ansi="1" class="button style-button ansi-1">Жирный</button>
+<button data-ansi="4" class="button style-button ansi-4">Линия</button>
+<br><br>
+<strong>Текст</strong>
+<button data-ansi="30" class="button style-button ansi-30-bg">&nbsp;</button>
+<button data-ansi="31" class="button style-button ansi-31-bg">&nbsp;</button>
+<button data-ansi="32" class="button style-button ansi-32-bg">&nbsp;</button>
+<button data-ansi="33" class="button style-button ansi-33-bg">&nbsp;</button>
+<button data-ansi="34" class="button style-button ansi-34-bg">&nbsp;</button>
+<button data-ansi="35" class="button style-button ansi-35-bg">&nbsp;</button>
+<button data-ansi="36" class="button style-button ansi-36-bg">&nbsp;</button>
+<button data-ansi="37" class="button style-button ansi-37-bg">&nbsp;</button>
+<br><br>
+<strong>Фон</strong>
+<button data-ansi="40" class="button style-button ansi-40">&nbsp;</button>
+<button data-ansi="41" class="button style-button ansi-41">&nbsp;</button>
+<button data-ansi="42" class="button style-button ansi-42">&nbsp;</button>
+<button data-ansi="43" class="button style-button ansi-43">&nbsp;</button>
+<button data-ansi="44" class="button style-button ansi-44">&nbsp;</button>
+<button data-ansi="45" class="button style-button ansi-45">&nbsp;</button>
+<button data-ansi="46" class="button style-button ansi-46">&nbsp;</button>
+<button data-ansi="47" class="button style-button ansi-47">&nbsp;</button>
+<br><br>
+<div class="flex"><div id="textarea" contenteditable="true">Добро пожаловать в&nbsp;<span class="ansi-45"><span class="ansi-37">Discord генератор</span></span>&nbsp;<span class="ansi-31">ц</span><span class="ansi-32">в</span><span class="ansi-33">е</span><span class="ansi-34">т</span><span class="ansi-35">н</span><span class="ansi-36">о</span><span class="ansi-37">г</span><span class="ansi-31">о</span>&nbsp;текста!</div></div>
+<br>
+<button class="button copy">Скопировать текст</button>
+<br>
+<br>
+<small>Это неофициальный инструмент, он не создан и не одобрен Discord.</small>
+<script type="text/javascript">
+    const textarea = document.querySelector("#textarea");
+    const copybtn = document.querySelector(".button.copy");
+
+    // Некоторое базовое экранирование вставленных HTML-тегов, не идеальное, но достаточно хорошее для этой ситуации.
+    textarea.oninput = () => {
+        const base = textarea.innerHTML.replace(/<(\/?(br|span|span class="ansi-[0-9]*"))>/g,"[$1]");
+        if (base.includes("<") || base.includes(">")) textarea.innerHTML = base.replace(/<.*?>/g,"").replace(/[<>]/g,"").replace(/\[(\/?(br|span|span class="ansi-[0-9]*"))\]/g,"<$1>");
+    };
+
+    // https://stackoverflow.com/a/61237402
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+            document.execCommand('insertLineBreak')
+            event.preventDefault()
+        }
+    });
+
+    document.querySelectorAll(".style-button").forEach((btn) => {
+        btn.onclick = () => {
+            if (!btn.dataset.ansi) {
+                textarea.innerText = textarea.innerText;
+                return;
+            }
+
+            const selection = window.getSelection();
+            const text = window.getSelection().toString();
+            
+            const span = document.createElement("span");
+            span.innerText = text;
+            span.classList.add(`ansi-${btn.dataset.ansi}`);
+
+            const range = selection.getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(span);
+
+            range.selectNodeContents(span);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        };
+    });
+
+    function nodesToANSI(nodes, states) {
+        let text = ""
+        for (const node of nodes) {
+            if (node.nodeType === 3) {
+                text += node.textContent;
+                continue;
+            }
+            if (node.nodeName === "BR") {
+                text += "\n";
+                continue;   
+            }
+            const ansiCode = +(node.className.split("-")[1]);
+            const newState = Object.assign({}, states.at(-1));
+
+            if (ansiCode < 30) newState.st = ansiCode;
+            if (ansiCode >= 30 && ansiCode < 40) newState.fg = ansiCode;
+            if (ansiCode >= 40) newState.bg = ansiCode;
+
+            states.push(newState)
+            text += `\x1b[${newState.st};${(ansiCode >= 40) ? newState.bg : newState.fg}m`;
+            text += nodesToANSI(node.childNodes, states);
+            states.pop()
+            text += `\x1b[0m`;
+            if (states.at(-1).fg !== 2) text += `\x1b[${states.at(-1).st};${states.at(-1).fg}m`;
+            if (states.at(-1).bg !== 2) text += `\x1b[${states.at(-1).st};${states.at(-1).bg}m`;
+        }
+        return text;
+    }
+
+    let copyCount = 0;
+    let copyTimeout = null;
+
+    copybtn.onclick = () => {
+        const toCopy = "```ansi\n" + nodesToANSI(textarea.childNodes, [{ fg: 2, bg: 2, st:2 }]) + "\n```";
+        navigator.clipboard.writeText(toCopy).then(() => {
+            if (copyTimeout) clearTimeout(copyTimeout);
+
+            const funnyCopyMessages = copybtn.innerText = ["Скопировано!", "Двойное копирование!", "Тройное копирование!", "Безумие!!", "Доминирование!!", "Мега-копирование!!", "Неудержимый!!", "Полный улёт!!", "Чудовищное копирование!!!", "БОЖЕСТВЕННО!!!", "БОЛЕЕ ЧЕМ БОЖЕСТВЕННО!!!!", Array(16).fill(0).reduce(p => p + String.fromCharCode(Math.floor(Math.random() * 65535)),"")];
+
+            copybtn.style.backgroundColor = (copyCount <= 8) ? "#3BA55D" : "#ED4245";
+            copybtn.innerText = funnyCopyMessages[copyCount];
+            copyCount = Math.min(11, copyCount + 1);
+            copyTimeout = setTimeout(() => {
+                copyCount = 0;
+                copybtn.style.backgroundColor = null;
+                copybtn.innerText = "Скопировать текст";
+            }, 2000)
+
+        }, (err) => {
+            // Нам не нужно останавливать пользователей, если они слишком увлекаются кнопкой
+            if (copyCount > 2) return;
+            alert("Копирование по какой-то причине не удалось, давайте попробуем показать предупреждение, может быть, вы сможете скопировать его вместо этого");
+            alert(toCopy);
+        });
+    }
+</script>
+</body>
+</html>
